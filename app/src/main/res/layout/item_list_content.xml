@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lst_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/content"
+        style="?android:attr/dropDownItemStyle"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_marginLeft="@dimen/_10ssp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
+        android:inputType="textCapWords"
+        app:layout_constraintEnd_toStartOf="@+id/latlng"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginRight="@dimen/_5ssp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Newjersy, United States " />
+
+    <TextView
+        android:id="@+id/latlng"
+        style="?android:attr/dropDownItemStyle"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_marginRight="@dimen/_10ssp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/_10ssp"
+        android:inputType="textCapWords"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Newjersy, United States " />
+
+
+    <View
+        android:id="@+id/borderview"
+        android:layout_width="0dp"
+        android:layout_height="0.3dp"
+        android:background="@color/black"
+        android:hardwareAccelerated="false"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
