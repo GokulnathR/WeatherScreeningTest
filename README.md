@@ -7,7 +7,7 @@ Skills used in this project
 3. RxJava
 4. Coroutines
 5. Unit Testing - Mockito
-6. SOLID Principles
+6. Followed SOLID Principles
 7. MVVM Architecture
 8. Hilt
 9. Jetpack Navigation
