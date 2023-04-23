@@ -15,9 +15,7 @@ object ErrorUtils {
         "Something went wrong, please try again after some time."
     private val API_UNKNOWN_FAILURE_MSG = "Something went wrong, Please contact administrator"
 
-//if (!NetworkUtils.isConnected(AppController.getInstance())) {
-//            EXCEPTION_NO_NETWORK_CONNECTION
-//        } else
+
     fun applyError(throwable: Throwable): String? {
         return if (throwable is UnknownHostException) {
             EXCEPTION_REQUEST_TIMEOUT

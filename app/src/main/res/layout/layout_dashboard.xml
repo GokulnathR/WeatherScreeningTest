@@ -98,6 +98,8 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idTemperaturesLayout"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/idCloudDesc"

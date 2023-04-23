@@ -200,12 +200,14 @@ public class DashboardFragment extends BaseFragment implements WeatherReportView
         _binding.valuePressure.setText(weatherReportResponse.getMain().getPressure());
         Glide.with(requireContext()).load(ApiConstants.INSTANCE.loadImageUrl(weatherReportResponse.getWeather().get(0).getIcon())).into(_binding.imgWeatherIndicator);
 
+        // Hiding inner layouts until api loading and visible after loading complete.
+        _binding.idTemperaturesLayout.setVisibility(View.VISIBLE);
     }
 
 
     @Override
     protected void onLocationChanged(@NonNull Location location) {
-        //This will be called only after the user clicks the current location button
+        //This will be called only after the user clicks the my location button
         // after that it will be called periodically(60 seconds) while the user is in moving.
 
         if (appPreference.getKEY_UPDATE_CURRENT_LOC()) //Conditioning based on the user selection (My Location or Search Location).

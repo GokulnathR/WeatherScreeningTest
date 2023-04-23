@@ -1,4 +1,4 @@
-package com.jpmorgan.screening.weather.di
+package com.screening.knowyourweather.di
 
 import android.app.Application
 import android.content.Context

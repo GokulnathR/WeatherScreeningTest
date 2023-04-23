@@ -14,9 +14,10 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.screening.knowyourweather.R
 import java.util.*
+import javax.inject.Inject
 
 
-class SearchAdapter(
+class SearchAdapter @Inject constructor(
     private var countryList: ArrayList<USCities>,
     private var listener: CitySearchListener
 ) :

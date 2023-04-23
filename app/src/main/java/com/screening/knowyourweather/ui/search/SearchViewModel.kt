@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(val cityRepository: CityRepository, app: Application) : AndroidViewModel(app){
+class SearchViewModel @Inject constructor(val cityRepository: CityRepository) : ViewModel(){
 
     private val _cities = MutableStateFlow(cityRepository.allCityList())
     val cities = _cities.asStateFlow()

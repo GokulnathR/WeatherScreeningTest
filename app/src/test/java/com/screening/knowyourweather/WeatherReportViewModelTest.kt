@@ -5,7 +5,8 @@ import com.screening.knowyourweather.network.ApiConstants.weatherParams
 import com.screening.knowyourweather.ui.weatherReport.WeatherReportRepository
 import com.screening.knowyourweather.ui.weatherReport.WeatherReportResponse
 import com.screening.knowyourweather.ui.weatherReport.WeatherReportViewModel
-import com.screening.knowyourweather.weather.AppApi
+import com.screening.knowyourweather.ui.weatherReport.WeatherReportViewState
+import com.screening.knowyourweather.weather.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -19,8 +20,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.Spy
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
@@ -28,16 +29,17 @@ class WeatherReportViewModelTest {
 
 
     lateinit var weatherReportViewModel: WeatherReportViewModel
-    lateinit var weatherReportResponse: WeatherReportResponse
 
-    @Mock
-    lateinit var appApi: AppApi
+    lateinit var weatherReportResponse: WeatherReportResponse
 
     @Mock
     lateinit var weatherReportRepository: WeatherReportRepository
 
     @Mock
     lateinit var appController: AppController
+
+    @Mock
+    lateinit var viewState: WeatherReportViewState
 
     @get:Rule
     val instantTaskExecutionRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
@@ -47,7 +49,10 @@ class WeatherReportViewModelTest {
     fun setUp(){
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(dispatcher)
-        weatherReportViewModel = WeatherReportViewModel(weatherReportRepository, appController)
+
+        //To test viewmodel with real object
+        weatherReportViewModel = Mockito.spy(WeatherReportViewModel(weatherReportRepository, appController))
+
         weatherReportResponse = WeatherReportResponse()
     }
 
@@ -56,9 +61,11 @@ class WeatherReportViewModelTest {
        runBlocking {
            Mockito.`when`(weatherReportRepository.fetchWeatherReport(weatherParams("New York")))
                .thenReturn(com.screening.knowyourweather.generics.Result.Success(WeatherReportResponse()))
-           val response = weatherReportRepository.fetchWeatherReport(weatherParams("New York"))
-           val weatherReportResponse = response.result as WeatherReportResponse
-           Assert.assertEquals( WeatherReportResponse(), weatherReportResponse)
+
+           weatherReportViewModel.fetchWeatherReport(weatherParams("New York"))
+           dispatcher.scheduler.advanceUntilIdle()
+
+           Mockito.verify(weatherReportViewModel, Mockito.times(1)).fetchWeatherReport(weatherParams("New York"))
        }
     }
 
@@ -66,11 +73,11 @@ class WeatherReportViewModelTest {
     fun `when fetching weather report status is failure`(){
        // Failure test case here
         runBlocking {
-            Mockito.`when`(weatherReportRepository.fetchWeatherReport(""))
+            Mockito.`when`(weatherReportRepository.fetchWeatherReport(weatherParams("")))
                 .thenReturn(com.screening.knowyourweather.generics.Result.Failure("Error Message"))
-            val response = weatherReportRepository.fetchWeatherReport("")
-            val weatherReportResponse = response.message as String
-            Assert.assertEquals( "Error Message", weatherReportResponse)
+            weatherReportViewModel.fetchWeatherReport(weatherParams(""))
+            dispatcher.scheduler.advanceUntilIdle()
+            Mockito.verify(weatherReportViewModel, Mockito.times(1)).fetchWeatherReport(weatherParams(""))
         }
     }
 
